@@ -713,6 +713,11 @@ footer {
   color: #fff !important;
 }
 
+.atm-number,
+.dana-number {
+    color: #fff;
+    text-decoration: none;
+}
 
 /* Media Query */
 /* Exrta Large*/
