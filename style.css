@@ -38,7 +38,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(img/ChatGPT\ Image\ 11\ Jan\ 2026\,\ 02.08.57.png);
+    background-image: url(img/hero-bg.png);
     background-size: cover;
     background-position: center;
     z-index: -1;
@@ -723,6 +723,104 @@ footer {
   text-align: justify;
 }
 
+#pagination {
+  gap: 10px;
+  margin-top: 25px;
+}
+
+#pagination .page-item .page-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#pagination .page-item.active .page-link {
+  background-color: #fff !important;
+  color: #810000 !important;
+  transform: scale(1.15);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-color: #fff;
+}
+
+#pagination .page-item .page-link:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+/* Container utama slider */
+.bg-slider-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -2; /* Di bawah semua konten */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Track yang bergerak dari kanan ke kiri */
+.bg-slider-track {
+  display: flex;
+  width: calc(100vw * 7); /* Jumlah total slide (6 + 1 duplikat) */
+  height: 100%;
+  animation: moveBackground 50s linear infinite; /* 50 detik agar gerak halus */
+}
+
+/* Setiap foto slide */
+.slide {
+  width: 100vw;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* Lapisan warna agar teks tetap terbaca */
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(144, 4, 4, 0.85), /* Merah gelap sesuai tema Anda */
+    rgba(28, 1, 5, 0.95)
+  );
+  z-index: -1;
+}
+
+/* Animasi Gerak Kanan ke Kiri */
+@keyframes moveBackground {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100vw * 6)); }
+}
+
+/* PAKSA SEMUA SECTION TRANSPARAN */
+section#quran, 
+section#home, 
+section#info, 
+section#story, 
+section#gallery, 
+section#rsvp, 
+section#gifts {
+  background: transparent !important;
+}
+
+/* Hilangkan background linear-gradient pada body agar slider terlihat */
+body {
+  background: #1c0105 !important;
+}
 /* Media Query */
 /* Exrta Large*/
 @media (max-width: 1200px) {

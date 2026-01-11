@@ -21,6 +21,18 @@
         <link rel="stylesheet" href="style.css">
   </head>
   <body class="lock-scroll">
+    <div class="bg-slider-container">
+  <div class="bg-slider-track">
+    <div class="slide" style="background-image: url('img/foto\ bg\ 1.JPG');"></div>
+    <div class="slide" style="background-image: url('img/foto\ bg\ 2.JPG');"></div>
+    <div class="slide" style="background-image: url('img/foto\ bg\ 3.JPG');"></div>
+    <div class="slide" style="background-image: url('img/foto\ bg\ 4.JPG');"></div>
+    <div class="slide" style="background-image: url('img/foto\ bg\ 5.JPG');"></div>
+    <div class="slide" style="background-image: url('img/foto\ bg\ 6.JPG');"></div>
+    <div class="slide" style="background-image: url('img/foto\ bg\ 1.JPG');"></div>
+  </div>
+  <div class="bg-overlay"></div>
+</div>
 
     <script>
   let scrollPosition = 0;
@@ -75,7 +87,7 @@
   </div>
 </nav>
 
-<!-- ORNAMEN GLOBAL (MULAI QURAN) -->
+  <!-- ORNAMENT / BACKGROUND SLIDER -->
 <div class="ornament-wrapper">
 
   <!-- ORNAMEN -->
@@ -101,6 +113,7 @@
       bagi kaum yang berpikir.”
     </p>
 
+  </div>
   </div>
 </section>
 
@@ -402,13 +415,20 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   <div class="col-12 text-end">
     <button class="btn btn-primary px-5">Kirim</button>
   </div>
-<!-- ===== BUKU TAMU ===== -->
+</form>
+
+<!-- ===== BUKU TAMU (HARUS DI LUAR FORM) ===== -->
 <div class="mt-5">
   <h3 class="text-center text-white mb-4">Ucapan & Doa</h3>
   <div id="bukuTamu" class="row justify-content-center"></div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <nav>
+      <ul class="pagination pagination-sm justify-content-center" id="pagination"></ul>
+    </nav>
+  </div>
 </div>
 
-</form>
   </div>
 </section>
 
@@ -721,73 +741,79 @@ function copyRekening(norek) {
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzhUK63t6s48dKzxfT82J4u9JMdbYAhNvt-11ZCfnj_X3sTlnzxqGfD1KAYDRcJ6NTl/exec";
+const LIMIT = 4; 
+let currentPage = 1;
+let allData = [];
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadBukuTamu();
-});
+document.addEventListener("DOMContentLoaded", loadBukuTamu);
 
 function loadBukuTamu() {
   fetch(API_URL)
     .then(res => res.json())
     .then(data => {
-      const container = document.getElementById("bukuTamu");
-      if (!container) return;
+      allData = data
+        .filter(item => item && item.nama && item.komentar)
+        .reverse();
+      render();
+    })
+    .catch(err => console.error("Gagal load data:", err));
+}
 
-      container.innerHTML = "";
+function render() {
+  const container = document.getElementById("bukuTamu");
+  const pagination = document.getElementById("pagination");
+  
+  // 1. Render isi ucapan
+  container.innerHTML = "";
+  const start = (currentPage - 1) * LIMIT;
+  const end = start + LIMIT;
+  const pageData = allData.slice(start, end);
 
-      data.reverse().forEach(item => {
-        if (!item.komentar) return;
-
-        // ===== ICON STATUS =====
-        let statusIcon = "";
-        let statusColor = "";
-
-        if (item.status === "Hadir") {
-          statusIcon = `<i class="bi bi-patch-check-fill"></i>`;
-          statusColor = "text-success";
-        } else if (item.status === "Tidak Hadir") {
-          statusIcon = `<i class="bi bi-patch-minus-fill"></i>`;
-          statusColor = "text-danger";
-        }
-
-        // ===== FORMAT WAKTU =====
-        let waktu = "";
-        if (item.tanggal) {
-          const date = new Date(item.tanggal);
-          waktu = date.toLocaleString("id-ID", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          });
-        }
-
-        const col = document.createElement("div");
-        col.className = "col-md-8 col-12 mb-3";
-
-        col.innerHTML = `
-          <div class="card shadow-sm">
+  if (pageData.length === 0) {
+    container.innerHTML = `<p class="text-center text-white">Belum ada ucapan.</p>`;
+  } else {
+    pageData.forEach(item => {
+      container.insertAdjacentHTML("beforeend", `
+        <div class="col-md-8 col-12 mb-3 fade-up show">
+          <div class="card shadow-sm border-0" style="border-radius: 15px; background: rgba(255,255,255,0.98);">
             <div class="card-body">
-              <h6 class="mb-1">${item.nama}</h6>
-
-              <small class="${statusColor}">
-                ${statusIcon} ${item.status} • ${item.jumlah} Orang
-              </small><br>
-
-              <small class="text-muted">
-                <i class="bi bi-clock"></i> ${waktu}
+              <h6 class="mb-1 fw-bold" style="color: #900a0a;">${item.nama}</h6>
+              <small class="${item.status === 'Hadir' ? 'text-success' : 'text-danger'} fw-bold">
+                <i class="bi ${item.status === 'Hadir' ? 'bi-check-circle' : 'bi-x-circle'}"></i> ${item.status}
               </small>
-
-              <p class="mt-2 mb-0">${item.komentar}</p>
+              <p class="mt-2 mb-0 text-dark" style="line-height: 1.5;">${item.komentar}</p>
+              <hr class="my-2 opacity-25">
+              <small class="text-muted" style="font-size: 0.7rem;">
+                <i class="bi bi-clock"></i> ${new Date(item.tanggal).toLocaleString("id-ID")}
+              </small>
             </div>
           </div>
-        `;
+        </div>
+      `);
+    });
+  }
 
-        container.appendChild(col);
-      });
-    })
-    .catch(err => console.error("Gagal memuat buku tamu:", err));
+  // 2. Render nomor halaman
+  pagination.innerHTML = "";
+  const totalPage = Math.ceil(allData.length / LIMIT);
+  if (totalPage <= 1) return;
+
+  for (let i = 1; i <= totalPage; i++) {
+    pagination.insertAdjacentHTML("beforeend", `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#rsvp" onclick="goToPage(${i}, event)">${i}</a>
+      </li>
+    `);
+  }
+}
+
+function goToPage(page, event) {
+  if (event) event.preventDefault();
+  currentPage = page;
+  render();
+  
+  // Scroll halus ke judul Ucapan agar user tahu halaman sudah berganti
+  document.querySelector('#rsvp h3').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
 
