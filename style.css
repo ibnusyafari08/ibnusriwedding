@@ -15,9 +15,9 @@ body {
   background:
     linear-gradient(
       to bottom,
-      #b82626 0%,
-      #a40f0f 25%,
-      #900a0a 50%,
+      #de3131 0%,
+      #ca1e1e 25%,
+      #900404 50%,
       #4a050e 85%,
       #1c0105 100%
     );
@@ -719,6 +719,10 @@ footer {
     text-decoration: none;
 }
 
+.rata-justify {
+  text-align: justify;
+}
+
 /* Media Query */
 /* Exrta Large*/
 @media (max-width: 1200px) {
@@ -877,7 +881,7 @@ footer {
   }
 
   .simply-countdown .simply-amount {
-    font-size: 2.2rem;   /* ANGKA JADI BESAR DI HP */
+    font-size: 2.5rem;   /* ANGKA JADI BESAR DI HP */
     font-weight: 700;
   }
 
