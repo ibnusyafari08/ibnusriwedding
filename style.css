@@ -11,19 +11,6 @@ body.lock-scroll {
     --panel-bg: rgba(255, 255, 255, 0.65);
 }
 
-body {
-  background:
-    linear-gradient(
-      to bottom,
-      #de3131 0%,
-      #ca1e1e 25%,
-      #900404 50%,
-      #4a050e 85%,
-      #1c0105 100%
-    );
-  background-attachment: fixed;
-}
-
 section {
   position: relative;
   background: transparent !important;
@@ -332,9 +319,11 @@ section {
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;
-    background-size: cover;
-    background-position: center;
+    background-size: cover;      /* Memastikan foto memenuhi lingkaran */
+    background-position: center;    /* Fokus pada tengah foto */
     background-repeat: no-repeat;
+    border: 4px solid #fff;      /* Tambahkan border agar terlihat rapi */
+    z-index: 2;                  /* Agar foto berada di depan garis */
 }
 
 
@@ -756,36 +745,40 @@ footer {
   color: #fff;
 }
 
-/* Container utama slider */
+/* Container utama */
 .bg-slider-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: -2; /* Di bawah semua konten */
+  z-index: -2;
   overflow: hidden;
   pointer-events: none;
 }
 
-/* Track yang bergerak dari kanan ke kiri */
+/* Track Animasi */
 .bg-slider-track {
   display: flex;
-  width: calc(100vw * 7); /* Jumlah total slide (6 + 1 duplikat) */
+  /* 6 slide = 600% dari lebar container */
+  width: 600%; 
   height: 100%;
-  animation: moveBackground 50s linear infinite; /* 50 detik agar gerak halus */
+  animation: moveBackground 40s linear infinite;
+  will-change: transform; /* Optimasi performa di HP */
 }
 
-/* Setiap foto slide */
+/* Slide per gambar */
 .slide {
-  width: 100vw;
+  /* Lebar tiap slide adalah 1/6 dari total track (100 / 6) */
+  width: 16.6666%; 
   height: 100%;
+  /* KUNCI: background-size: cover memastikan foto memenuhi layar tanpa gepeng */
   background-size: cover;
   background-position: center;
   flex-shrink: 0;
 }
 
-/* Lapisan warna agar teks tetap terbaca */
+/* Overlay agar teks terbaca di semua perangkat */
 .bg-overlay {
   position: absolute;
   top: 0;
@@ -794,16 +787,21 @@ footer {
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(144, 4, 4, 0.85), /* Merah gelap sesuai tema Anda */
-    rgba(28, 1, 5, 0.95)
+    rgba(144, 4, 4, 0.7), 
+    rgba(28, 1, 5, 0.9)
   );
   z-index: -1;
 }
 
-/* Animasi Gerak Kanan ke Kiri */
+/* Animasi Seamless Loop */
 @keyframes moveBackground {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-100vw * 6)); }
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    /* Geser sejauh 5 slide (83.33%) untuk berhenti tepat di duplikat slide 1 */
+    transform: translateX(-83.3333%); 
+  }
 }
 
 /* PAKSA SEMUA SECTION TRANSPARAN */
@@ -820,6 +818,57 @@ section#gifts {
 /* Hilangkan background linear-gradient pada body agar slider terlihat */
 body {
   background: #1c0105 !important;
+}
+
+/* Membuat modal lightbox lebih besar */
+.ekko-lightbox .modal-dialog {
+    max-width: 100% !important;
+    margin: 0;
+    padding: 0;
+}
+
+.ekko-lightbox .modal-content {
+    background: rgba(0,0,0,0.8); /* Latar belakang lebih gelap agar foto menonjol */
+    border: none;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.ekko-lightbox .modal-body {
+    padding: 0;
+}
+
+.ekko-lightbox img {
+    max-height: 90vh; /* Agar gambar tidak terpotong tombol close */
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Menghilangkan modal ganda / backdrop yang menumpuk */
+.modal-backdrop.show:nth-of-type(even) {
+    display: none !important;
+}
+
+/* Memaksa Lightbox Memenuhi Layar */
+.ekko-lightbox .modal-dialog {
+    max-width: 100% !important;
+    margin: 0 !important;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.ekko-lightbox .modal-content {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border: none !important;
+    height: 100vh;
+}
+
+.ekko-lightbox img {
+    max-height: 90vh !important; /* Sisakan sedikit ruang untuk tombol close */
+    width: auto;
+    object-fit: contain;
 }
 /* Media Query */
 /* Exrta Large*/
@@ -886,12 +935,19 @@ body {
         margin-bottom: 4rem;
     }
 
+   @media (max-width: 768px) {
+    /* ... kode lainnya ... */
+
     .timeline li .timeline-image {
         left: 15px;
-        width: 80px;
-        height: 80px;
+        width: 80px;  /* Ukuran lebih kecil untuk HP */
+        height: 80px; /* Harus sama agar tetap bulat */
         transform: none;
+        background-size: cover;      /* Pastikan ini tetap ada */
+        background-position: center; /* Pastikan ini tetap ada */
+        border: 2px solid #fff;      /* Border lebih tipis untuk HP */
     }
+}
 
     .timeline li .timeline-panel {
         width: 100%;
