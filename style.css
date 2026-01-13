@@ -206,7 +206,7 @@ section {
 }
 
 .info .card {
-    background-color: rgba(235, 149, 149, 0.5) !important;
+    background-color: rgba(0, 0, 0, 0.473) !important;
     color: white !important;
     border: 1px solid #fff;
 }
@@ -334,7 +334,7 @@ section {
     padding: 2rem;
     position: relative;
     border-radius: 5px;
-    background-color: rgba(235, 149, 149, 0.5);
+    background-color: rgba(0, 0, 0, 0.473) !important;
     text-align: right;
 }
 
@@ -426,7 +426,7 @@ section {
 
 .gifts span {
     display: block;
-    color: #666;
+    color: #fff;
     font-size: 1rem;
     letter-spacing: 1rem;
     margin-bottom: 0.8rem;
@@ -734,7 +734,7 @@ footer {
 
 #pagination .page-item.active .page-link {
   background-color: #fff !important;
-  color: #810000 !important;
+  color: #0e00006a !important;
   transform: scale(1.15);
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   border-color: #fff;
