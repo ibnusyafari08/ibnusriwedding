@@ -8,9 +8,12 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
       <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=Meie+Script&family=Sacramento&family=Work+Sans&display=swap" rel="stylesheet">
-      
+      <<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=Love+Light&family=Meie+Script&family=Sacramento&family=Work+Sans&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+
       <!-- simlyCountdown -->
        <link rel="stylesheet" href="countdown/default.min.css">
        <script src="countdown/simplyCountdown.umd.js"></script>
@@ -21,6 +24,30 @@
         <link rel="stylesheet" href="style.css">
   </head>
   <body class="lock-scroll">
+    <script>
+  // MATIKAN RESTORE SCROLL
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // JIKA ADA #hash → HAPUS
+  if (window.location.hash) {
+    history.replaceState(
+      null,
+      document.title,
+      window.location.pathname + window.location.search
+    );
+  }
+
+  // PAKSA KE HERO
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+  }, 50);
+</script>
+
     <div class="bg-slider-container">
   <div class="bg-slider-track">
     <div class="slide" style="background-image: url('img/foto-background-1.jpg');"></div>
@@ -45,9 +72,16 @@
 
  <section id="hero" class="hero w-100 h-100 p-3 mx-auto text-center d-flex justify-content-center align-items-center text-white">
   <main>
-    <h4 class="fade-up">
-       Kepada Bapak/Ibu/Saudara/i serta Kerabat Sekalian: <br> <br> Yth. <span id="guest-name">Bapak/Ibu/Saudara/i</span>
-      </h4>
+    <div class="fade-up mx-auto">
+  <p class="fade-up">
+    Kepada Bapak/Ibu/Saudara/i serta Kerabat Sekalian:
+  </p>
+  <div class="guest-card">
+    <span class="guest-prefix">Yth.</span>
+    <span id="guest-name" class="guest-name">Nama Tamu</span>
+  </div>
+</div>
+
       <br>
     <h1 class="fade-up">Ibnu Syafari & Sri Wahyuni</h1>
     <p class="fade-up">Akan melangsungkan resepsi pernikahan dalam:</p>
@@ -85,6 +119,18 @@
     </div>
   </div>
 </nav>
+
+<script>
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      navbar.classList.remove('show');
+    }
+  });
+</script>
+
 
   <!-- ORNAMENT / BACKGROUND SLIDER -->
 <div class="ornament-wrapper">
@@ -127,33 +173,62 @@
         <p class="fade-up">Tanpa mengurangi rasa hormat, kami bermaksud untuk mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian, untuk menghadiri acara pernikahan kami</p>
       </div>
     </div>
+
+    <!-- INISIAL PENGANTIN -->
+<div class="initial-wrapper" id="initial">
+  <span class="initial s">S</span>
+  <span class="divider-line"></span>
+  <span class="initial i">I</span>
+</div>
+
+
     <div class="row couple">
-      <div class="col-lg-6 fade-left">
-        <div class="row">
-          <div class="col-8 text-end">
-            <h3>Ibnu Syafari</h3>
-            <p>Putra kedua dari <br> Bapak H. Ony Syafari & <br> Ibu Hj. Winda Andriani</p>
-          </div>
-          <div class="col-4">
-            <img src="img/mempelai pria.png" alt="Ibnu Syafari" class="img-responsive rounded-circle">
+  <!-- PRIA -->
+  <div class="col-lg-6 fade-left">
+    <div class="row">
+      <div class="col-8 text-end">
+        <h3>Ibnu Syafari</h3>
+
+        <div class="parent-card">
+          <div class="role">Putra kedua dari:</div>
+          <div class="parent-name">
+            Bapak H. Ony Syafari <br>
+            & Ibu Hj. Winda Andriani
           </div>
         </div>
       </div>
-
-      <span class="heart"><i class="bi bi-heart-fill"></i></span>
-
-      <div class="col-lg-6 fade-right">
-        <div class="row">
-          <div class="col-4">
-            <img src="img/mempelai wanita.png" alt="Sri Wahyuni" class="img-responsive rounded-circle">
-          </div>
-          <div class="col-8">
-            <h3>Sri Wahyuni</h3>
-            <p>Putri ketiga dari <br> Bapak Rajimin & <br> Ibu Nurhayati</p>
-          </div>
-        </div>
+      <div class="col-4">
+        <img src="img/mempelai pria.png" alt="Ibnu Syafari" class="img-responsive rounded-circle">
       </div>
     </div>
+  </div>
+
+  <span class="heart"><i class="bi bi-heart-fill"></i></span>
+  <div class="initial-divider">&</div>
+
+  <!-- WANITA -->
+  <div class="col-lg-6 fade-right">
+    <div class="row">
+      <div class="col-4">
+        <img src="img/mempelai wanita.png" alt="Sri Wahyuni" class="img-responsive rounded-circle">
+      </div>
+      <div class="col-8">
+        <h3>Sri Wahyuni</h3>
+
+        <div class="parent-card">
+          <div class="role">Putri ketiga dari:
+          </div>
+          <div class="parent-name">
+            Bapak Rajimin <br>
+            & Ibu Nurhayati
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 </section>
 
@@ -168,9 +243,12 @@
   <img src="img/ea1dd305-4612-4206-808e-da27b178c9e2.png" alt="Lokasi Acara" class="img-fluid rounded shadow">
 </a>
 
-<a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9" target="_blank" class="btn btn-light btn-sm my-2 fade-up">
+<a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9"
+   target="_blank"
+   class="btn btn-map my-2 fade-up">
   Click Untuk Membuka Maps
 </a>
+
         <p class="fade-up" style="font-family: 'Sacramento';">Save The Date</p>
       </div>
     </div>
@@ -193,8 +271,8 @@
           </div>
           <div class="card-footer rata-justify" style="text-align: justify;">
             Dengan penuh rasa syukur kepada Allah SWT, kami telah melangsungkan akad nikah pada bulan suci Ramadhan.
-Mengingat kekhusyukan bulan yang mulia ini serta keterbatasan yang ada, akad nikah dilaksanakan secara tertutup dan hanya dihadiri oleh keluarga inti.
-Oleh karena itu, dengan segala kerendahan hati, kami mohon doa restu dari Bapak/Ibu/Saudara/i agar pernikahan ini senantiasa diberkahi Allah SWT, dan menjadi keluarga yang sakinah, mawaddah, warahmah.
+Mengingat kekhusyukan bulan yang mulia ini serta keterbatasan yang ada, tanpa mengurangi rasa hormat akad nikah dilaksanakan secara tertutup dan hanya dihadiri oleh keluarga inti.
+Oleh karena itu, kami mohon doa restu dari Bapak/Ibu/Saudara/i agar pernikahan ini senantiasa diberkahi Allah SWT, dan menjadi keluarga yang sakinah, mawaddah, warahmah.
           </div>
         </div>
       </div>
@@ -229,7 +307,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
       <div class="col-md-8 col-10 text-center">
         <span class="story-singkatan fade-up">SRIusmeNUnggu</span>
         <h2 class="fade-up">Cerita Kami</h2>
-        <p class="fade-up">Satu Dasawarsa telah kami jalani dan tibalah hari di mana kami di persatukan dalam  satu ikatan yang sah</p>
+        <p class="fade-up">Lebih dari Satu Dasawarsa telah kami jalani dan tibalah hari di mana kami di persatukan dalam satu ikatan yang sah</p>
       </div>
     </div>
 
@@ -345,18 +423,23 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail/thumbnail 3.png" data-toggle="lightbox" data-caption="Ibnu & Sri 3" data-gallery="mygallery">
+        <a href="img/gallery/thumbnail/thumbnail 3.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 3" data-gallery="mygallery">
           <img src="img/gallery/thumbnail-3-kecil.PNG" alt="Ibnu & Sri 3" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail/thumbnail 4.png" data-toggle="lightbox" data-caption="Ibnu & Sri 4" data-gallery="mygallery">
+        <a href="img/gallery/thumbnail/thumbnail 4.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 4" data-gallery="mygallery">
           <img src="img/gallery/thumbnail-4-kecil.PNG" alt="Ibnu & Sri 4" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail/thumbnail 5.png" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
+        <a href="img/gallery/thumbnail/thumbnail-5.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
           <img src="img/gallery/thumbnail-5-kecil.PNG" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
+        </a>
+      </div>
+      <div class="col mt-3">
+        <a href="img/gallery/thumbnail/thumbnail-6.PNG" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-6-kecil.png" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
         </a>
       </div>
     </div>
@@ -621,21 +704,31 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   }
 
   openBtn.addEventListener('click', function (e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    document.documentElement.classList.remove('lock-scroll');
-    document.body.classList.remove('lock-scroll');
-    document.body.style.top = '';
+  // buka scroll
+  document.documentElement.classList.remove('lock-scroll');
+  document.body.classList.remove('lock-scroll');
+  document.body.style.top = '';
 
-    document.querySelector('.mynavbar').classList.add('show');
+  // tampilkan navbar
+  document.querySelector('.mynavbar').classList.add('show');
 
-    window.scrollTo({
-      top: document.getElementById('quran').offsetTop,
-      behavior: 'smooth'
-    });
+  // play musik
+  playAudio();
 
-    playAudio(); // ▶️ PLAY AUDIO
+  // 🔽 scroll ke section quran
+  const quran = document.getElementById('quran');
+  quran.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
   });
+
+  // ⏳ mulai auto scroll setelah sampai quran
+  setTimeout(() => {
+    startAutoScroll();
+  }, 1800);
+});
 
   // ▶️ toggle play / pause
   audioWrapper.addEventListener('click', function () {
@@ -917,6 +1010,125 @@ window.addEventListener('scroll', () => {
     loop: true, // Bisa swipe terus menerus
     zoomable: true // Memungkinkan user mencubit layar untuk zoom
   });
+</script>
+
+<script>
+  function bukaUndangan() {
+  document.body.classList.remove('lock-scroll');
+
+  window.scrollTo(0, 0);
+
+  const nav = document.querySelector('.mynavbar');
+  if (nav) {
+    setTimeout(() => {
+      nav.classList.add('show');
+    }, 300);
+  }
+}
+</script>
+
+<script>
+  function scrollToSection(e, id) {
+    e.preventDefault();
+
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+    // update URL setelah scroll
+    history.pushState(null, '', '#' + id);
+
+    window.addEventListener('hashchange', () => {
+  window.scrollTo(0, 0);
+});
+  }
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const initial = document.getElementById("initial");
+  if (!initial) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        initial.classList.add("show");   // masuk layar → animasi
+      } else {
+        initial.classList.remove("show"); // keluar layar → reset
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(initial);
+});
+</script>
+
+<script>
+let autoScrollRAF = null;
+let autoScrollPaused = false;
+let resumeTimer = null;
+
+const SCROLL_SPEED = 1;    // kecepatan scroll
+const RESUME_DELAY = 2000;   // lanjut lagi setelah 2 detik idle
+
+function startAutoScroll() {
+  stopAutoScroll();
+  autoScrollPaused = false;
+
+  function step() {
+    if (autoScrollPaused) return;
+
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+
+    const footerTop = footer.offsetTop;
+    const current = window.scrollY + window.innerHeight;
+
+    if (current < footerTop) {
+      window.scrollBy(0, SCROLL_SPEED);
+      autoScrollRAF = requestAnimationFrame(step);
+    }
+  }
+
+  autoScrollRAF = requestAnimationFrame(step);
+}
+
+function stopAutoScroll() {
+  if (autoScrollRAF) {
+    cancelAnimationFrame(autoScrollRAF);
+    autoScrollRAF = null;
+  }
+}
+
+function pauseAutoScroll() {
+  autoScrollPaused = true;
+  stopAutoScroll();
+
+  clearTimeout(resumeTimer);
+  resumeTimer = setTimeout(() => {
+    autoScrollPaused = false;
+    startAutoScroll();
+  }, RESUME_DELAY);
+}
+
+// 🛑 Deteksi interaksi user
+['wheel', 'touchstart', 'touchmove', 'keydown'].forEach(evt => {
+  window.addEventListener(evt, pauseAutoScroll, { passive: true });
+});
+</script>
+
+<script>
+  function fixHeroHeight() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
+  window.addEventListener('resize', fixHeroHeight);
+  fixHeroHeight();
 </script>
 
   </body>

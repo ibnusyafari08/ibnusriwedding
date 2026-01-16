@@ -18,33 +18,42 @@ section {
   font-family: "Work Sans", sans-serif;
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(img/hero-bg.png);
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
+.hero {
+  min-height: 100vh;
+  height: 100vh;        /* ⬅️ kunci tinggi */
+  position: relative;
+  overflow: hidden;
+  contain: paint;
 }
 
-.hero {
-    position: relative;
-    min-height: 100vh;
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(img/hero-bg.png);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transform: translateZ(0); /* ⬅️ GPU lock */
 }
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 .hero h1, .hero h4, .hero p {
     text-shadow: var(--shadow);
 }
 
 .hero h1 {
-    font-family: 'Sacramento';
+    font-family: 'Great Vibes', cursive;
     font-size: 2.8rem;
     color: #fff;
     font-weight: bold;
+    text-shadow: var(--shadow);
 }
 
 .hero h4 {
@@ -155,12 +164,12 @@ section {
 }
 
 .home .couple {
-    margin-top: 100px;
+    margin-top: 40px;
     position: relative;
 }
 
 .home .couple h3 {
-    font-family: 'sacramento', cursive;
+    font-family: 'Great Vibes', cursive;
     font-size: 2.5rem;
     color: #fff;
     text-shadow: var(--shadow);
@@ -224,6 +233,10 @@ section {
 .info .card-footer {
     border-top: 1px solid white;
     font-size: 1rem;
+}
+
+.info p {
+    font-size: 2.8rem;
 }
 
 .story h2,
@@ -628,11 +641,11 @@ footer li {
   font-weight: 600;
 }
 
-/* Animasi umum fade-up */
 .fade-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 1s ease-out;
+  transform: translate3d(0, 30px, 0);
+  transition: transform 1s ease-out, opacity 1s ease-out;
+  will-change: transform, opacity;
 }
 
 /* Animasi fade-left */
@@ -663,11 +676,11 @@ footer li {
 
 .floral {
   position: fixed;
-  width: 360px;
-  height: 360px;
+  width: 250px;
+  height: 250px;
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: 0.22;
+  opacity: 0.20;
   pointer-events: none;
   z-index: 0;
 }
@@ -870,6 +883,264 @@ body {
     width: auto;
     object-fit: contain;
 }
+
+.btn-map {
+  background-color: #ffffff;     /* PUTIH di awal */
+  color: #800020;                /* teks maroon */
+  border: 2px solid #800020;     /* garis maroon */
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.35s ease;
+}
+
+/* saat hover / tap */
+.btn-map:hover,
+.btn-map:focus {
+  background-color: #800020;     /* maroon */
+  color: #ffffff;
+  box-shadow: 0 6px 15px rgba(128, 0, 32, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ===== GUEST CARD (HITAM PUTIH) ===== */
+/* ===== GUEST CARD AUTO WIDTH (FOLLOW NAME) ===== */
+.guest-card {
+  display: inline-block; /* ⬅️ penting: ikut lebar isi */
+  width: auto;
+  max-width: 90vw;
+
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 999px; /* pill shape */
+
+  padding: 10px 22px; /* ⬅️ lebih tipis */
+  margin: 0 auto;
+
+  text-align: center;
+  color: #fff;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+
+.guest-label {
+  font-size: 1rem;
+  letter-spacing: 0.4px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.guest-name-wrapper {
+  white-space: nowrap; /* ⬅️ tetap 1 baris */
+}
+
+.guest-prefix {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-right: 4px;
+}
+
+.guest-name {
+  font-size: 1.05rem; /* ⬅️ diperkecil */
+  font-weight: 600;
+  letter-spacing: 0.6px;
+   text-transform: none; /* ⬅️ huruf normal */
+}
+
+/* ===== SLIM DARK PARENT CARD (AUTO HEIGHT) ===== */
+.parent-card {
+  width: 230px;              /* ⬅️ lebar tetap */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0);
+
+  border-radius: 18px;
+  padding: 12px 16px;        /* tinggi ikut font */
+  margin-top: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.65); /* ⬅️ garis putih */
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0);
+}
+
+/* Putra / Putri */
+.parent-card .role {
+  font-family: 'Work Sans', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.6px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+/* Nama orang tua */
+.parent-card .parent-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.4px;
+}
+
+/* alignment */
+.fade-left .parent-card {
+  text-align: right;
+  margin-left: auto;
+}
+
+.fade-right .parent-card {
+  text-align: left;
+  margin-right: auto;
+}
+
+/* Wrapper */
+.initial-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 30px 0;
+  overflow: hidden;
+}
+
+/* Inisial */
+.initial {
+
+  font-family: 'Love Light', cursive;
+  font-size: 64px;
+  color: #fff;
+  opacity: 0;
+}
+
+/* Posisi awal */
+.initial.s {
+  transform: translateX(-80px);
+}
+
+.initial.i {
+  transform: translateX(80px);
+}
+
+/* Garis */
+.divider-line {
+  width: 2px;
+  height: 0;
+  background-color: #fff;
+  opacity: .6;
+  position: relative;
+}
+
+/* Override fade-up khusus initial */
+.initial-wrapper.fade-up {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* AKTIF SAAT ANIMASI */
+.initial-wrapper.show .initial.s {
+  animation: sIn 1.2s ease forwards;
+}
+
+.initial-wrapper.show .initial.i {
+  animation: iIn 1.2s ease forwards .3s;
+}
+
+.initial-wrapper.show .divider-line {
+  animation: lineDrop 1s ease forwards .6s;
+}
+
+.divider-line::after {
+  content: "♥";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #bb0c0c;
+}
+
+.initial-wrapper.show {
+  animation-delay: .5s;
+}
+
+.initial-divider {
+  font-family: 'Great Vibes', cursive;
+  font-size: 30px;                 /* LEBIH BESAR */
+  font-weight: 100;
+  color: #fff;                
+  margin: 9px 0 11px;
+  letter-spacing: 8px;
+  text-align: center;
+  text-shadow: var(--shadow);
+}
+
+/* Container utama untuk pemisah */
+.divider-couple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  position: relative;
+  z-index: 10;
+}
+
+/* Mengatur ikon hati */
+.heart-icon {
+  color: #e91e63; /* Warna merah atau sesuaikan */
+  font-size: 1.2rem;
+  margin-bottom: -10px; /* Merapatkan dengan ampersand */
+}
+
+/* Mengatur simbol & */
+.ampersand {
+  font-family: 'Sacramento', cursive; /* Gunakan font estetik Anda */
+  font-size: 3rem;
+  color: #ad8b3a; /* Warna emas */
+  line-height: 1;
+}
+
+/* Pengaturan khusus untuk layar Desktop (Layar Lebar) */
+@media (min-width: 992px) {
+  .divider-couple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    margin: 0;
+  }
+  
+  .couple {
+    position: relative; /* Pastikan row utama punya position relative */
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+/* KEYFRAMES */
+@keyframes sIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes iIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes lineDrop {
+  to {
+    height: 50px;
+  }
+}
+
 /* Media Query */
 /* Exrta Large*/
 @media (max-width: 1200px) {
@@ -911,6 +1182,19 @@ body {
         text-align: center;
     }
 
+    .parent-card {
+    width: 210px;
+    padding: 10px 14px;
+  }
+
+  .parent-card .role {
+    font-size: 0.85rem;
+  }
+
+  .parent-card .parent-name {
+    font-size: 0.75rem;
+  }
+
     .home .heart {
         display: none;
 }
@@ -934,6 +1218,16 @@ body {
         padding-left: 120px;
         margin-bottom: 4rem;
     }
+
+    @media (max-width: 576px) {
+  .guest-card {
+    padding: 16px;
+  }
+
+  .guest-name {
+    font-size: 1.15rem;
+  }
+}
 
    @media (max-width: 768px) {
     /* ... kode lainnya ... */
@@ -959,7 +1253,7 @@ body {
 .timeline li .timeline-panel::before {
     top: 100px;
     right: -15px;
-    border-left: 15px solid var(--pink);
+    border-left: 15px solid #fff;
 }
 
 .timeline li .timeline-panel::after {
@@ -973,7 +1267,7 @@ body {
         top: 40px;
         left: -15px;
         right: auto;
-        border-right: 15px solid var(--pink);
+        border-right: 15px solid #fff;
         border-left: none;
     }
 
