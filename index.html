@@ -8,10 +8,12 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
       <link rel="preconnect" href="https://fonts.googleapis.com">
-      <<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=Love+Light&family=Meie+Script&family=Sacramento&family=Work+Sans&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style.css">
 
 
       <!-- simlyCountdown -->
@@ -106,8 +108,9 @@
       </div>
       <div class="offcanvas-body">
          <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="#foto">Home</a>  
         <a class="nav-link" href="#quran">Ayat</a>
-        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#home">Acara</a>
         <a class="nav-link" href="#info">Info</a>
         <a class="nav-link" href="#story">Story</a>
         <a class="nav-link" href="#gallery">Gallery</a>
@@ -131,6 +134,37 @@
   });
 </script>
 
+<section id="foto" class="foto-section text-center text-white d-flex align-items-center">
+<div class="invitation-container">
+
+  <!-- ORNAMEN -->
+  <img src="img/floral-maroon-left.png" class="ornament top-left delay-1">
+  <img src="img/floral-maroon-right.png" class="ornament top-right delay-2">
+  <img src="img/floral-maroon-left.png" class="ornament bottom-left delay-3">
+  <img src="img/floral-maroon-right.png" class="ornament bottom-right delay-4">
+
+  <!-- TEXT -->
+  <h4 class="subtitle">WELCOME TO</h4>
+  <h1 class="title">THE WEDDING</h1>
+  <p class="names">Ibnu Syafari & Sri Wahyuni</p>
+
+  <!-- PHOTO FRAME -->
+  <div class="photo-frame fade-in">
+    <img src="img/gallery/thumbnail/thumbnail 1.png" alt="Couple">
+    <img src="img/floral-maroon-left.png" class="frame-ornament delay-5">
+    <img src="img/floral-maroon-left.png" class="frame-ornament2 delay-6">
+  </div>
+
+  <!-- DATE -->
+  <div class="date">
+    <span>MAR</span>
+    <span>26</span>
+    <span>2026</span>
+  </div>
+  <p class="address"></p>
+
+</div>
+
 
   <!-- ORNAMENT / BACKGROUND SLIDER -->
 <div class="ornament-wrapper">
@@ -140,6 +174,7 @@
   <div class="floral floral-right"></div>
   <div class="ornament ornament-top"></div>
   <div class="ornament ornament-bottom"></div>
+</section>
 
 <section id="quran" class="quran-section text-center text-white d-flex align-items-center">
   <div class="container">
@@ -706,10 +741,14 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   openBtn.addEventListener('click', function (e) {
   e.preventDefault();
 
-  // buka scroll
+  // buka kunci scroll
   document.documentElement.classList.remove('lock-scroll');
   document.body.classList.remove('lock-scroll');
+
+  // reset posisi body (kalau sebelumnya pakai position: fixed)
+  document.body.style.position = '';
   document.body.style.top = '';
+  document.body.style.width = '';
 
   // tampilkan navbar
   document.querySelector('.mynavbar').classList.add('show');
@@ -717,18 +756,16 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   // play musik
   playAudio();
 
-  // 🔽 scroll ke section quran
-  const quran = document.getElementById('quran');
-  quran.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  });
-
-  // ⏳ mulai auto scroll setelah sampai quran
-  setTimeout(() => {
-    startAutoScroll();
-  }, 1800);
+  // scroll ke section foto
+  const foto = document.getElementById('foto');
+  if (foto) {
+    foto.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
 });
+
 
   // ▶️ toggle play / pause
   audioWrapper.addEventListener('click', function () {
@@ -1123,13 +1160,23 @@ function pauseAutoScroll() {
 
 <script>
   function fixHeroHeight() {
-    let vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
+  // saat pertama load
+  window.addEventListener('load', fixHeroHeight);
+
+  // saat resize / rotate
   window.addEventListener('resize', fixHeroHeight);
-  fixHeroHeight();
+  window.addEventListener('orientationchange', fixHeroHeight);
+
+  // penting untuk iOS / mobile: saat halaman di-refresh atau kembali dari cache
+  window.addEventListener('pageshow', function () {
+    setTimeout(fixHeroHeight, 50);
+  });
 </script>
+
 
   </body>
 </html>
