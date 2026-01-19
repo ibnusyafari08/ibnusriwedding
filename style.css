@@ -18,34 +18,46 @@ section {
   font-family: "Work Sans", sans-serif;
 }
 
-.hero {
-  min-height: calc(var(--vh, 1vh) * 100);
-  height: calc(var(--vh, 1vh) * 100);
+html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  /* Mencegah scroll horizontal yang sering bikin 'goyang' di HP */
+  overflow-x: hidden; 
+}
+
+.hero {
+  /* Gunakan dvh (dynamic viewport height) agar pas saat address bar muncul/hilang */
+  min-height: 100vh;
+  min-height: 100dvh; 
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   overflow: hidden;
 }
 
-.hero .invitation-container {
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-
 .hero::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url(img/hero-bg.png);
   background-size: cover;
   background-position: center;
   z-index: 0;
-  transform: translateZ(0); /* ⬅️ GPU lock */
 }
 
-.hero > * {
-  position: relative;
+/* Pastikan container konten tidak memiliki margin yang aneh */
+.hero main {
+  width: 100%;
+  padding: 2rem 1rem; /* Gunakan padding dalam untuk konten agar tidak mepet layar */
   z-index: 1;
 }
 
@@ -707,11 +719,16 @@ footer li {
 
 /* semua konten tetap di atas */
 section,
-.navbar,
 .audio-icon-wrapper,
 footer {
   z-index: 1;
 }
+
+/* paksa navbar selalu paling atas */
+.mynavbar {
+  z-index: 9999 !important;
+}
+
 
 /* =========================
    TEKS ALAMAT PUTIH (GIFTS)
@@ -1148,8 +1165,8 @@ body {
   font-size: 16px;
   margin-bottom: 30px;
   color: #fff;
-  font-family: 'Love Light', cursive;
-  font-size: 3rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
 }
 
 /* PHOTO */
@@ -1195,6 +1212,7 @@ body {
   gap: 20px;
   font-weight: bold;
   color: #fff;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .address {
@@ -1238,6 +1256,30 @@ body {
 .delay-4 { animation-delay: 2s; }
 .delay-5 { animation-delay: 2.5s; }
 .delay-6 { animation-delay: 3s; }
+
+#foto {
+  /* Pastikan section menggunakan min-height agar fleksibel */
+  min-height: 100dvh;
+  padding-top: 80px; /* Memberikan ruang agar tidak tertutup navbar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Konten tetap di tengah secara vertikal */
+}
+
+.invitation-container {
+  width: 100%;
+  position: relative;
+  /* Tambahkan margin-top jika padding di section dirasa kurang */
+  margin-top: 2rem; 
+  z-index: 2;
+}
+
+/* Penyesuaian spesifik untuk teks Welcome */
+.subtitle {
+  margin-top: 1rem;
+  letter-spacing: 3px;
+  font-size: 1rem;
+}
 
 /* ANIMATION */
 @keyframes fadeFloat {
@@ -1457,7 +1499,7 @@ body {
 }
 
 .simply-countdown .simply-section {
-  background: #fff;
+  background: #ffffff;
   border-radius: 14px;
   padding: 16px 18px;
   min-width: 90px;
@@ -1488,13 +1530,13 @@ body {
   }
 
   .simply-countdown .simply-section {
-    padding: 12px 10px;
-    min-width: 68px;
+    padding: 12px 6px;
+    min-width: 70px;
     border-radius: 12px;
   }
 
   .simply-countdown .simply-amount {
-    font-size: 2.5rem;   /* ANGKA JADI BESAR DI HP */
+    font-size: clamp(2rem, 8vw, 3rem);
     font-weight: 700;
   }
 
@@ -1507,5 +1549,11 @@ body {
 @media (max-width: 576px) {
   .invitation-container {
     padding: 20px 16px; /* sebelumnya 40px 20px */
+  }
+}
+
+@media (max-width: 430px) {
+  .simply-countdown .simply-amount {
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
   }
 }
