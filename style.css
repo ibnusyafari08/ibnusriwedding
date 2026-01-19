@@ -19,11 +19,17 @@ section {
 }
 
 .hero {
-  min-height: 100vh;
-  height: 100vh;        /* ⬅️ kunci tinggi */
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 100);
+  margin: 0;
+  padding: 0;
   position: relative;
   overflow: hidden;
-  contain: paint;
+}
+
+.hero .invitation-container {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 
@@ -108,24 +114,24 @@ section {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999 !important;
 
-  background: #fff;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  z-index: 1050; /* standar Bootstrap */
+
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-100%);
-  transition: all 0.6s ease;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
-/* ===== NAVBAR SETELAH BUKA UNDANGAN ===== */
+/* saat aktif */
 .mynavbar.show {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
+
 
 
 .mynavbar .offcanvas {
@@ -1099,8 +1105,167 @@ body {
 .ampersand {
   font-family: 'Sacramento', cursive; /* Gunakan font estetik Anda */
   font-size: 3rem;
-  color: #ad8b3a; /* Warna emas */
+  color: #fff; /* Warna emas */
   line-height: 1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #fdfdfc;
+  font-family: 'Poppins', sans-serif;
+}
+
+.invitation-container {
+  position: relative;
+  max-width: 500px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+
+/* TEXT */
+.subtitle {
+  letter-spacing: 3px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  margin: 10px 0;
+  color: #fff;
+}
+
+.names {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #fff;
+  font-family: 'Love Light', cursive;
+  font-size: 3rem;
+}
+
+/* PHOTO */
+.photo-frame {
+  position: relative;
+  width: 260px;
+  height: 360px;
+  margin: 0 auto 30px;
+  border-radius: 140px 140px 30px 30px;
+  overflow: hidden;
+  animation: fadeUp 1.5s ease forwards;
+}
+
+.photo-frame img:first-child {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ORNAMEN DI FRAME */
+.frame-ornament {
+  position: absolute;
+  top: -30px;
+  left: -40px;
+  width: 90px;
+  animation: float 4s ease-in-out infinite;
+  color: #fff;
+}
+
+.frame-ornament2 {
+  position: absolute;
+  bottom: -30px;
+  right: -40px;
+  width: 100px;
+  animation: float 5s ease-in-out infinite;
+  color: #fff;
+}
+
+/* DATE */
+.date {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.address {
+  font-size: 13px;
+  margin-top: 8px;
+  color: #fff;
+}
+
+/* ORNAMEN UMUM */
+.ornament {
+  position: absolute;
+  width: 80px;
+  opacity: 0;
+  animation: fadeFloat 3s ease forwards;
+}
+
+.top-left {
+  top: -20px;
+  left: -20px;
+}
+
+.top-right {
+  top: -20px;
+  right: -20px;
+}
+
+.bottom-left {
+  bottom: -20px;
+  left: -20px;
+}
+
+.bottom-right {
+  bottom: -20px;
+  right: -20px;
+}
+
+/* DELAY */
+.delay-1 { animation-delay: .5s; }
+.delay-2 { animation-delay: 1s; }
+.delay-3 { animation-delay: 1.5s; }
+.delay-4 { animation-delay: 2s; }
+.delay-5 { animation-delay: 2.5s; }
+.delay-6 { animation-delay: 3s; }
+
+/* ANIMATION */
+@keyframes fadeFloat {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 /* Pengaturan khusus untuk layar Desktop (Layar Lebar) */
@@ -1336,5 +1501,11 @@ body {
   .simply-countdown .simply-word {
     font-size: 0.6rem;
     margin-top: 2px;
+  }
+}
+
+@media (max-width: 576px) {
+  .invitation-container {
+    padding: 20px 16px; /* sebelumnya 40px 20px */
   }
 }
