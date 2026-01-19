@@ -27,6 +27,16 @@
   </head>
   <body class="lock-scroll">
     <script>
+  function preventScroll(e) {
+    e.preventDefault();
+  }
+
+  // kunci scroll total
+  document.addEventListener('wheel', preventScroll, { passive: false });
+  document.addEventListener('touchmove', preventScroll, { passive: false });
+</script>
+
+    <script>
   // MATIKAN RESTORE SCROLL
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -72,7 +82,7 @@
   });
 </script>
 
- <section id="hero" class="hero w-100 h-100 p-3 mx-auto text-center d-flex justify-content-center align-items-center text-white">
+ <section id="hero" class="hero w-100 h-100 text-center d-flex justify-content-center align-items-center text-white">
   <main>
     <div class="fade-up mx-auto">
   <p class="fade-up">
@@ -745,7 +755,10 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   document.documentElement.classList.remove('lock-scroll');
   document.body.classList.remove('lock-scroll');
 
-  // reset posisi body (kalau sebelumnya pakai position: fixed)
+  document.removeEventListener('wheel', preventScroll);
+  document.removeEventListener('touchmove', preventScroll);
+
+  // reset posisi body
   document.body.style.position = '';
   document.body.style.top = '';
   document.body.style.width = '';
@@ -765,6 +778,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
     });
   }
 });
+
 
 
   // ▶️ toggle play / pause
@@ -1101,60 +1115,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }, { threshold: 0.5 });
 
   observer.observe(initial);
-});
-</script>
-
-<script>
-let autoScrollRAF = null;
-let autoScrollPaused = false;
-let resumeTimer = null;
-
-const SCROLL_SPEED = 1;    // kecepatan scroll
-const RESUME_DELAY = 2000;   // lanjut lagi setelah 2 detik idle
-
-function startAutoScroll() {
-  stopAutoScroll();
-  autoScrollPaused = false;
-
-  function step() {
-    if (autoScrollPaused) return;
-
-    const footer = document.querySelector('footer');
-    if (!footer) return;
-
-    const footerTop = footer.offsetTop;
-    const current = window.scrollY + window.innerHeight;
-
-    if (current < footerTop) {
-      window.scrollBy(0, SCROLL_SPEED);
-      autoScrollRAF = requestAnimationFrame(step);
-    }
-  }
-
-  autoScrollRAF = requestAnimationFrame(step);
-}
-
-function stopAutoScroll() {
-  if (autoScrollRAF) {
-    cancelAnimationFrame(autoScrollRAF);
-    autoScrollRAF = null;
-  }
-}
-
-function pauseAutoScroll() {
-  autoScrollPaused = true;
-  stopAutoScroll();
-
-  clearTimeout(resumeTimer);
-  resumeTimer = setTimeout(() => {
-    autoScrollPaused = false;
-    startAutoScroll();
-  }, RESUME_DELAY);
-}
-
-// 🛑 Deteksi interaksi user
-['wheel', 'touchstart', 'touchmove', 'keydown'].forEach(evt => {
-  window.addEventListener(evt, pauseAutoScroll, { passive: true });
 });
 </script>
 
