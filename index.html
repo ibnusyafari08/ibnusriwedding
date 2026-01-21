@@ -26,14 +26,49 @@
         <link rel="stylesheet" href="style.css">
   </head>
   <body class="lock-scroll">
-    <script>
-  function preventScroll(e) {
+
+    <!-- LAYER ANIMASI MEMPELAI -->
+<div id="opening-animation" class="opening-anim">
+  <div class="anim-wrapper">
+    <img src="img/burung.png" class="bird bird-1" alt="Bird">
+    <img src="img/burung.png" class="bird bird-2" alt="Bird">
+
+    <img src="img/bangunan.png" class="bg-building" alt="Background Building">
+    
+    <img src="img/floral-maroon-left.png" class="side-ornament left" alt="Ornament Left">
+    <img src="img/floral-maroon-right.png" class="side-ornament right" alt="Ornament Right">
+
+    <img src="img/wanita.png" class="groom" alt="Groom">
+    <img src="img/pria.png" class="bride" alt="Bride">
+  </div>
+</div>
+
+   <script>
+  // Fungsi untuk mematikan scroll
+  function disableScroll(e) {
     e.preventDefault();
   }
 
-  // kunci scroll total
-  document.addEventListener('wheel', preventScroll, { passive: false });
-  document.addEventListener('touchmove', preventScroll, { passive: false });
+  // Aktifkan kunci saat halaman dimuat
+  document.addEventListener('wheel', disableScroll, { passive: false });
+  document.addEventListener('touchmove', disableScroll, { passive: false });
+  document.addEventListener('keydown', function(e) {
+    if(["Space","ArrowUp","ArrowDown"].includes(e.code)) e.preventDefault();
+  }, { passive: false });
+
+  // Fungsi untuk MEMBUKA kunci (Akan dipanggil di tombol Buka Undangan)
+  function enableScroll() {
+  document.removeEventListener('wheel', disableScroll);
+  document.removeEventListener('touchmove', disableScroll);
+  document.onkeydown = null;
+
+  document.body.classList.remove('lock-scroll');
+  document.documentElement.classList.remove('lock-scroll');
+
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+}
 </script>
 
     <script>
@@ -118,7 +153,7 @@
       </div>
       <div class="offcanvas-body">
          <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="#foto">Home</a>  
+        <a class="nav-link" href="#foto">Home</a>
         <a class="nav-link" href="#quran">Ayat</a>
         <a class="nav-link" href="#home">Acara</a>
         <a class="nav-link" href="#info">Info</a>
@@ -154,9 +189,9 @@
   <img src="img/floral-maroon-right.png" class="ornament bottom-right delay-4">
 
   <!-- TEXT -->
-  <h4 class="subtitle">WELCOME TO</h4>
-  <h1 class="title">THE WEDDING</h1>
-  <p class="names">Ibnu Syafari & Sri Wahyuni</p>
+  <h4 class="subtitle fade-in">WELCOME TO</h4>
+  <h1 class="title fade-in">THE WEDDING</h1>
+  <p class="names fade-in">Ibnu Syafari & Sri Wahyuni</p>
 
   <!-- PHOTO FRAME -->
   <div class="photo-frame fade-in">
@@ -166,12 +201,14 @@
   </div>
 
   <!-- DATE -->
-  <div class="date">
-    <span>MAR</span>
-    <span>26</span>
-    <span>2026</span>
+  <div class="date fade-in">
+    <span class="fade-left">26</span>
+    <span class="fade-up">APRIL</span>
+    <span class="fade-right">2026</span>
   </div>
-  <p class="address"></p>
+  <p class="address fade-up">بَارَكَ اللهُ لَكَ، وَبَارَكَ عَلَيْكَ، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ<br>
+“Semoga Allah memberkahimu, memberkahi pernikahanmu, dan menghimpun kalian berdua dalam kebaikan.”<br>
+(HR. Abu Dawud, Tirmidzi)</p>
 
 </div>
 
@@ -666,7 +703,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
 
 <div id="audio-container">
   <audio id="song" loop>
-    <source src="audio/song.mp3" type="audio/mp3"> 
+    <source src="audio/song-2.mp3" type="audio/mp3"> 
   </audio>
 
   <div class="audio-icon-wrapper" style="display: none;">
@@ -675,6 +712,67 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
 </div>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const offcanvasEl = document.getElementById("offcanvasNavbar");
+  if (!offcanvasEl) return;
+
+  const instance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+
+  let startX = 0;
+  let endX = 0;
+
+  offcanvasEl.addEventListener("touchstart", function (e) {
+    startX = e.touches[0].clientX;
+  });
+
+  offcanvasEl.addEventListener("touchmove", function (e) {
+    endX = e.touches[0].clientX;
+  });
+
+  offcanvasEl.addEventListener("touchend", function () {
+    const diff = endX - startX;
+
+    // Jika geser ke kanan lebih dari 80px → tutup
+    if (diff > 80 && offcanvasEl.classList.contains("show")) {
+      instance.hide();
+    }
+
+    startX = 0;
+    endX = 0;
+  });
+});
+</script>
+
+<script>
+document.addEventListener(
+  "pointerdown",
+  function (e) {
+    const offcanvasEl = document.getElementById("offcanvasNavbar");
+    if (!offcanvasEl) return;
+
+    const instance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+
+    if (!offcanvasEl.classList.contains("show")) return;
+
+    const isInside = offcanvasEl.contains(e.target);
+    const isToggler = e.target.closest(".navbar-toggler");
+
+    if (!isInside && !isToggler) {
+      instance.hide();
+    }
+  },
+  true // <-- CAPTURE PHASE (kunci agar tembus layer lain)
+);
+</script>
+
+<script>
+document.getElementById('offcanvasNavbar').addEventListener('pointerdown', e => {
+  e.stopPropagation();
+});
+</script>
+
 
 
     <script>
@@ -718,15 +816,14 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   const audioIcon = audioWrapper.querySelector('i');
   const song = document.getElementById('song');
 
-  const MAX_VOLUME = 0.10; // 🔉 volume global (kecil & nyaman)
-
+  const MAX_VOLUME = 0.10;
   let isPlaying = false;
 
   function playAudio() {
     song.pause();
     song.currentTime = 0;
 
-    song.volume = 0; // mulai senyap
+    song.volume = 0;
     song.play();
 
     audioWrapper.style.display = 'flex';
@@ -735,7 +832,6 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
 
     isPlaying = true;
 
-    // 🎵 fade in lembut
     let step = 0.003;
     let interval = 180;
 
@@ -748,37 +844,46 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
     }, interval);
   }
 
-  openBtn.addEventListener('click', function (e) {
+ openBtn.addEventListener('click', function (e) {
   e.preventDefault();
+  const anim = document.getElementById('opening-animation');
+  const targetSection = document.getElementById('foto'); 
+  
+  anim.classList.add('active');
 
-  // buka kunci scroll
-  document.documentElement.classList.remove('lock-scroll');
-  document.body.classList.remove('lock-scroll');
+  setTimeout(() => {
+    // 1. Sembunyikan layer animasi
+    anim.style.display = 'none';
+    anim.classList.add('finish');
 
-  document.removeEventListener('wheel', preventScroll);
-  document.removeEventListener('touchmove', preventScroll);
+    // 2. Lompat instan ke section foto (TANPA animasi)
+    if (targetSection) {
+      const targetPosition = targetSection.offsetTop;
+      window.scrollTo(0, targetPosition); // <- ini langsung lompat
+    }
 
-  // reset posisi body
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.width = '';
+    // 3. Baru aktifkan scroll
+    enableScroll(); 
 
-  // tampilkan navbar
-  document.querySelector('.mynavbar').classList.add('show');
+    // 4. Munculkan navbar
+    const nav = document.querySelector('.mynavbar');
+    if (nav) {
+      nav.classList.add('show');
+      nav.style.opacity = '1';
+      nav.style.visibility = 'visible';
+    }
 
-  // play musik
-  playAudio();
+    playAudio();
 
-  // scroll ke section foto
-  const foto = document.getElementById('foto');
-  if (foto) {
-    foto.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
+    // 5. Safety: pastikan tetap di section foto
+    setTimeout(() => {
+      if (targetSection) {
+        window.scrollTo(0, targetSection.offsetTop);
+      }
+    }, 50);
+
+  }, 2500); // durasi animasi
 });
-
 
 
   // ▶️ toggle play / pause
@@ -1136,7 +1241,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(fixHeroHeight, 50);
   });
 </script>
-
 
   </body>
 </html>
