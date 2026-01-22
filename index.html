@@ -30,16 +30,16 @@
     <!-- LAYER ANIMASI MEMPELAI -->
 <div id="opening-animation" class="opening-anim">
   <div class="anim-wrapper">
-    <img src="img/burung.png" class="bird bird-1" alt="Bird">
-    <img src="img/burung.png" class="bird bird-2" alt="Bird">
+    <img src="img/burung.webp" loading="lazy" class="bird bird-1" alt="Bird">
+    <img src="img/burung.webp" loading="lazy" class="bird bird-2" alt="Bird">
 
-    <img src="img/bangunan.png" class="bg-building" alt="Background Building">
+    <img src="img/bangunan.webp" loading="lazy" class="bg-building" alt="Background Building">
     
-    <img src="img/floral-maroon-left.png" class="side-ornament left" alt="Ornament Left">
-    <img src="img/floral-maroon-right.png" class="side-ornament right" alt="Ornament Right">
+    <img src="img/janur kanan.webp" loading="lazy" class="side-ornament left" alt="Ornament Left">
+    <img src="img/janur kiri.webp" loading="lazy" class="side-ornament right" alt="Ornament Right">
 
-    <img src="img/wanita.png" class="groom" alt="Groom">
-    <img src="img/pria.png" class="bride" alt="Bride">
+    <img src="img/wanita.webp" loading="lazy" class="groom" alt="Groom">
+    <img src="img/pria.webp" loading="lazy" class="bride" alt="Bride">
   </div>
 </div>
 
@@ -53,8 +53,16 @@
   document.addEventListener('wheel', disableScroll, { passive: false });
   document.addEventListener('touchmove', disableScroll, { passive: false });
   document.addEventListener('keydown', function(e) {
-    if(["Space","ArrowUp","ArrowDown"].includes(e.code)) e.preventDefault();
-  }, { passive: false });
+  const tag = e.target.tagName.toLowerCase();
+
+  // JIKA SEDANG NGETIK DI INPUT / TEXTAREA → BOLEHKAN SEMUA
+  if (tag === 'input' || tag === 'textarea') return;
+
+  if (["Space", "ArrowUp", "ArrowDown"].includes(e.code)) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
 
   // Fungsi untuk MEMBUKA kunci (Akan dipanggil di tombol Buka Undangan)
   function enableScroll() {
@@ -97,15 +105,20 @@
 
     <div class="bg-slider-container">
   <div class="bg-slider-track">
-    <div class="slide" style="background-image: url('img/foto-background-1.jpg');"></div>
-    <div class="slide" style="background-image: url('img/foto-background-2.jpg');"></div>
-    <div class="slide" style="background-image: url('img/foto-background-3.jpg');"></div>
-    <div class="slide" style="background-image: url('img/foto-background-4.jpg');"></div>
-    <div class="slide" style="background-image: url('img/foto-background-5.jpg');"></div>
-    <div class="slide" style="background-image: url('img/foto-background-1.jpg');"></div>
+    <!-- FOTO ASLI -->
+    <div class="slide lazy-bg" data-bg="img/foto-background-1.webp"></div>
+    <div class="slide lazy-bg" data-bg="img/foto-background-2.webp"></div>
+    <div class="slide lazy-bg" data-bg="img/foto-background-3.webp"></div>
+
+    <!-- DUPLIKAT -->
+    <div class="slide lazy-bg" data-bg="img/foto-background-1.webp"></div>
+    <div class="slide lazy-bg" data-bg="img/foto-background-2.webp"></div>
+    <div class="slide lazy-bg" data-bg="img/foto-background-3.webp"></div>
   </div>
+
   <div class="bg-overlay"></div>
 </div>
+
 
     <script>
   let scrollPosition = 0;
@@ -183,10 +196,10 @@
 <div class="invitation-container">
 
   <!-- ORNAMEN -->
-  <img src="img/floral-maroon-left.png" class="ornament top-left delay-1">
-  <img src="img/floral-maroon-right.png" class="ornament top-right delay-2">
-  <img src="img/floral-maroon-left.png" class="ornament bottom-left delay-3">
-  <img src="img/floral-maroon-right.png" class="ornament bottom-right delay-4">
+  <img src="img/floral-maroon-left.webp" loading="lazy" class="ornament top-left delay-1">
+  <img src="img/floral-maroon-right.webp" loading="lazy" class="ornament top-right delay-2">
+  <img src="img/floral-maroon-left.webp" loading="lazy" class="ornament bottom-left delay-3">
+  <img src="img/floral-maroon-right.webp" loading="lazy" class="ornament bottom-right delay-4">
 
   <!-- TEXT -->
   <h4 class="subtitle fade-in">WELCOME TO</h4>
@@ -195,9 +208,9 @@
 
   <!-- PHOTO FRAME -->
   <div class="photo-frame fade-in">
-    <img src="img/gallery/thumbnail/thumbnail 1.png" alt="Couple">
-    <img src="img/floral-maroon-left.png" class="frame-ornament delay-5">
-    <img src="img/floral-maroon-left.png" class="frame-ornament2 delay-6">
+    <img src="img/gallery/thumbnail/thumbnail 1.png" loading="lazy" alt="Couple">
+    <img src="img/floral-maroon-left.webp" loading="lazy" class="frame-ornament delay-5">
+    <img src="img/floral-maroon-right.webp" loading="lazy" class="frame-ornament2 delay-6">
   </div>
 
   <!-- DATE -->
@@ -264,51 +277,41 @@
 </div>
 
 
-    <div class="row couple">
-  <!-- PRIA -->
-  <div class="col-lg-6 fade-left">
-    <div class="row">
-      <div class="col-8 text-end">
-        <h3>Ibnu Syafari</h3>
+    <div class="col-lg-6 fade-left">
+  <div class="couple-card">
+    <img src="img/mempelai pria.png" class="couple-img" alt="Ibnu Syafari">
+    <h3 class="couple-name">Ibnu Syafari</h3>
 
-        <div class="parent-card">
-          <div class="role">Putra kedua dari:</div>
-          <div class="parent-name">
-            Bapak H. Ony Syafari <br>
-            & Ibu Hj. Winda Andriani
-          </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <img src="img/mempelai pria.png" alt="Ibnu Syafari" class="img-responsive rounded-circle">
+    <div class="parent-card">
+      <div class="role">Putra kedua dari:</div>
+      <div class="parent-name">
+        Bapak H. Ony Syafari <br>
+        & Ibu Hj. Winda Andriani
       </div>
     </div>
   </div>
+</div>
+
 
   <span class="heart"><i class="bi bi-heart-fill"></i></span>
   <div class="initial-divider">&</div>
 
   <!-- WANITA -->
   <div class="col-lg-6 fade-right">
-    <div class="row">
-      <div class="col-4">
-        <img src="img/mempelai wanita.png" alt="Sri Wahyuni" class="img-responsive rounded-circle">
-      </div>
-      <div class="col-8">
-        <h3>Sri Wahyuni</h3>
+  <div class="couple-card">
+    <img src="img/mempelai wanita.png" class="couple-img" alt="Sri Wahyuni">
+    <h3 class="couple-name">Sri Wahyuni</h3>
 
-        <div class="parent-card">
-          <div class="role">Putri ketiga dari:
-          </div>
-          <div class="parent-name">
-            Bapak Rajimin <br>
-            & Ibu Nurhayati
-          </div>
-        </div>
-
+    <div class="parent-card">
+      <div class="role">Putri ketiga dari:</div>
+      <div class="parent-name">
+        Bapak Rajimin <br>
+        & Ibu Nurhayati
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
   </div>
@@ -322,7 +325,7 @@
         <h2 class="fade-up">Informasi Acara</h2>
         <p class="alamat fade-up">Alamat: Jl. SDN 4, Gang H.Asmadi Busri, <br> Desa Harapan, Kec.Pemangkat, Kab.Sambas</p>
        <a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9" target="_blank" class="d-block mb-2 fade-up">
-  <img src="img/ea1dd305-4612-4206-808e-da27b178c9e2.png" alt="Lokasi Acara" class="img-fluid rounded shadow">
+  <img src="img/ea1dd305-4612-4206-808e-da27b178c9e2.webp" loading="lazy" alt="Lokasi Acara" class="img-fluid rounded shadow">
 </a>
 
 <a href="https://maps.app.goo.gl/6ZJakq5i2FdnAxwM9"
@@ -397,7 +400,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   <div class="col">
     <ul class="timeline">
       <li>
-  <div class="timeline-image fade-up" style="background-image: url(img/timeline-1.PNG);"></div>
+  <div class="timeline-image fade-up lazy-bg" data-bg="img/timeline-1.webp"></div>
 
   <div class="timeline-panel fade-left">
     <div class="timeline-heading">
@@ -406,13 +409,13 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
     </div>
     <div class="timeline-body fade-left">
       <p>
-        di kelas IX F lah kami pertama kali bertemu. Awalnya, kami tidak terlalu akrab-hanya sekadar saling mengenal. Namun, ada sesuatu yang tak bisa dijelaskan; kilatan kecocokan muncul begitu saja di antara kami, seolah menandai awal dari sebuah persahabatan yang akan tumbuh lebih dari sekadar teman sekelas.
+        Di masa SMP, kami pertama kali bertemu. Awalnya, kami tidak terlalu dekat-hanya sebatas saling mengenal. Namun, seiring waktu, tumbuh rasa nyaman yang membuat kami semakin akrab, menjadi awal dari sebuah persahabatan yang berarti.
       </p>
     </div>
   </div>
 </li>
            <li class="timeline-inverted fade-left">
-  <div class="timeline-image fade-up" style="background-image: url(img/timeline-3.PNG);"></div>
+  <div class="timeline-image fade-up lazy-bg" data-bg="img/timeline-2.webp"></div>
 
   <div class="timeline-panel fade-left">
     <div class="timeline-heading fade-left">
@@ -430,7 +433,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
     </ul>
      <ul class="timeline fade-left">
       <li>
-  <div class="timeline-image fade-up" style="background-image: url(img/timeline-4.PNG);"></div>
+  <div class="timeline-image fade-up lazy-bg" data-bg="img/timeline-3.webp"></div>
 
   <div class="timeline-panel fade-left">
     <div class="timeline-heading fade-left">
@@ -445,7 +448,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   </div>
 
         <li class="timeline-inverted fade-left">
-  <div class="timeline-image fade-up" style="background-image: url(img/timeline-6.PNG);"></div>
+  <div class="timeline-image fade-up lazy-bg" data-bg="img/timeline-4.webp"></div>
 
   <div class="timeline-panel fade-left">
     <div class="timeline-heading fade-left">
@@ -462,7 +465,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   
 </li>
 <li>
-  <div class="timeline-image fade-up" style="background-image: url(img/timeline-7.png);"></div>
+  <div class="timeline-image fade-up lazy-bg" data-bg="img/timeline-5.webp"></div>
 
   <div class="timeline-panel fade-left">
     <div class="timeline-heading fade-left">
@@ -496,32 +499,32 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
     <div class="row row-cols-md-4 row-cols-sm-3 row-cols-2 row-cols-1 justify-content-center">
       <div class="col mt-3">
         <a href="img/gallery/thumbnail/thumbnail 1.png" data-toggle="lightbox" data-caption="Ibnu & Sri 1" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail-1-kecil.png" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
+          <img src="img/gallery/thumbnail-1-kecil.webp" loading="lazy" alt="Ibnu & Sri 1" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
         <a href="img/gallery/thumbnail/thumbnail 2.PNG" data-toggle="lightbox" data-caption="Ibnu & Sri 2" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail-2-kecil.png" alt="Ibnu & Sri 2" class="img-fluid w-100 rounded">
+          <img src="img/gallery/thumbnail-2-kecil.webp" loading="lazy" alt="Ibnu & Sri 2" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
         <a href="img/gallery/thumbnail/thumbnail 3.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 3" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail-3-kecil.png" alt="Ibnu & Sri 3" class="img-fluid w-100 rounded">
+          <img src="img/gallery/thumbnail-3-kecil.webp" loading="lazy" alt="Ibnu & Sri 3" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
         <a href="img/gallery/thumbnail/thumbnail 4.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 4" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail-4-kecil.png" alt="Ibnu & Sri 4" class="img-fluid w-100 rounded">
+          <img src="img/gallery/thumbnail-4-kecil.webp" loading="lazy" alt="Ibnu & Sri 4" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
-        <a href="img/gallery/thumbnail/thumbnail-5.JPG" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail-5-kecil.png" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
+        <a href="img/gallery/thumbnail/thumbnail-5.jpeg" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
+          <img src="img/gallery/thumbnail-5-kecil.webp" loading="lazy" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
         </a>
       </div>
       <div class="col mt-3">
         <a href="img/gallery/thumbnail/thumbnail-6.PNG" data-toggle="lightbox" data-caption="Ibnu & Sri 5" data-gallery="mygallery">
-          <img src="img/gallery/thumbnail-6-kecil.png" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
+          <img src="img/gallery/thumbnail-6-kecil.webp" loading="lazy" alt="Ibnu & Sri 5" class="img-fluid w-100 rounded">
         </a>
       </div>
     </div>
@@ -613,7 +616,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
   <div class="atm-card atm-bca mx-auto">
     
     <div class="atm-header d-flex align-items-center justify-content-between">
-      <img src="img/Logo-Bank-Central-Asia-BCA.png" alt="Bank BCA" class="atm-logo">
+      <img src="img/Logo-Bank-Central-Asia-BCA.png" loading="lazy" alt="Bank BCA" class="atm-logo">
       <span class="atm-type">ATM</span>
     </div>
 
@@ -641,7 +644,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
         <li class="list-group-item bg-transparent border-0">
   <div class="atm-card atm-kalbar mx-auto">
     <div class="atm-header d-flex align-items-center justify-content-between">
-      <img src="img/Bank Kalbar.png" alt="Bank Kalbar" class="atm-logo">
+      <img src="img/Bank Kalbar.png" loading="lazy" alt="Bank Kalbar" class="atm-logo">
       <span class="atm-type">ATM</span>
     </div>
 
@@ -666,12 +669,12 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
 
         <li class="list-group-item">
           <div class="fw-bold">Dana <br> Sri Wahyuni</div>
-          <img src="img/QR Dana Sri.jpeg" alt="QR Dana" class="img-thumbnail mt-2" width="150">
+          <img src="img/QR Dana Sri.jpeg" loading="lazy" alt="QR Dana" class="img-thumbnail mt-2" width="150">
           <div class="dana-number">085822490479</div>
         </li>
         <li class="list-group-item">
           <div class="fw-bold">Dana <br> Ibnu Syafari</div>
-          <img src="img/QR dana ibnu.jpeg" alt="QR Dana" class="img-thumbnail mt-2" width="150">
+          <img src="img/QR dana ibnu.jpeg" loading="lazy" alt="QR Dana" class="img-thumbnail mt-2" width="150">
           <div class="dana-number">083838920303</div>
         </li>
       </ul>
@@ -703,7 +706,7 @@ Kehadiran dan doa restu Anda akan menjadi kehormatan dan kebahagiaan bagi kami.
 
 <div id="audio-container">
   <audio id="song" loop>
-    <source src="audio/song-2.mp3" type="audio/mp3"> 
+    <source src="audio/song.mp3" type="audio/mp3"> 
   </audio>
 
   <div class="audio-icon-wrapper" style="display: none;">
@@ -981,7 +984,7 @@ function copyRekening(norek) {
 </script>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzhUK63t6s48dKzxfT82J4u9JMdbYAhNvt-11ZCfnj_X3sTlnzxqGfD1KAYDRcJ6NTl/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzORg8qme2JxGyEUN9N-XeuYsSPKxuzXavGrsw5J2SmM6AFeFTu4CC-gV8i3Glm-CiA/exec";
 const LIMIT = 4; 
 let currentPage = 1;
 let allData = [];
@@ -1240,6 +1243,21 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener('pageshow', function () {
     setTimeout(fixHeroHeight, 50);
   });
+</script>
+
+<script>
+const bgObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      el.style.backgroundImage = `url(${el.dataset.bg})`;
+      bgObserver.unobserve(el);
+    }
+  });
+});
+
+document.querySelectorAll('.lazy-bg')
+  .forEach(el => bgObserver.observe(el));
 </script>
 
   </body>
