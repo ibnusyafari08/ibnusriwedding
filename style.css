@@ -52,7 +52,7 @@ section {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url(img/hero-bg.png);
+  background-image: url(img/hero-bg.webp);
   background-size: cover;
   background-position: center;
   z-index: -1;   /* dorong ke belakang hero */
@@ -213,21 +213,144 @@ section {
     text-shadow: var(--shadow);
 }
 
-.home .couple img {
-    width: 100%;
+/* ================================
+   COUPLE CARD – WHITE BORDER
+================================ */
+
+.couple-card {
+  position: relative;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 28px;
+  padding: 42px 30px 36px;
+  max-width: 280px;
+  margin: auto;
+
+  border: 1.6px solid rgba(255,255,255,0.75);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.5);
+
+  animation: cardEnter 1.2s ease forwards;
 }
 
-.home .heart {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    display: flex;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%) translateY(65px);
+/* ================================
+   FOTO MEMPELAI – PREMIUM FRAME
+================================ */
+
+.couple-img {
+  width: 150px;
+  height: 190px;
+  object-fit: cover;
+
+  border-radius: 80px 80px 60px 60px;
+  background: #fff;
+
+  padding: 6px;
+  box-shadow:
+    0 14px 35px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.9);
+
+  margin-bottom: 14px;
+
+  animation: floatPhoto 5s ease-in-out infinite;
 }
+
+/* FRAME LIGHT EFFECT */
+.couple-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* ================================
+   NAMA MEMPELAI
+================================ */
+
+.couple-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  text-align: center;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+}
+
+/* ================================
+   ORANG TUA – TANPA CARD
+   POSISI TENGAH BAWAH FOTO
+================================ */
+
+.role {
+  font-size: 0.8rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.parent-name {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.95;
+}
+
+/* ================================
+   ALIGN KIRI & KANAN (DESKTOP)
+================================ */
+
+.fade-left .couple-card {
+  text-align: right;
+}
+
+.fade-right .couple-card {
+  text-align: left;
+}
+
+/* ================================
+   HOVER ELEGAN
+================================ */
+
+@media (hover: hover) {
+  .couple-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 55px rgba(255,255,255,0.15);
+  }
+}
+
+/* ================================
+   MOBILE FIX
+================================ */
+
+@media (max-width: 768px) {
+  .couple-card {
+    text-align: center !important;
+  }
+}
+
+/* ================================
+   ANIMATION
+================================ */
+
+@keyframes floatPhoto {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes cardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 
 .home .heart i {
     margin: auto;
@@ -819,10 +942,12 @@ footer {
 
 .bg-slider-track {
   display: flex;
-  width: 600%;              /* 6 slide */
+  width: 600%;
   height: 100%;
   animation: moveBackground 60s linear infinite;
+  will-change: transform;
 }
+
 
 .slide {
   width: 16.6666%;
@@ -840,9 +965,14 @@ footer {
 }
 
 @keyframes moveBackground {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-83.3333%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 
 /* Semua konten di atas slider */
 section,
@@ -1029,50 +1159,60 @@ section#gifts {
 }
 
 /* ===== SLIM DARK PARENT CARD (AUTO HEIGHT) ===== */
+/* ===============================
+   ORANG TUA – TANPA CARD
+================================ */
+
 .parent-card {
-  width: 230px;              /* ⬅️ lebar tetap */
+  width: 100%;
+  margin-top: 10px;
+  padding: 0;
+
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 
-  background: rgba(0, 0, 0, 0);
-
-  border-radius: 18px;
-  padding: 12px 16px;        /* tinggi ikut font */
-  margin-top: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.65); /* ⬅️ garis putih */
   color: #ffffff;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0);
+  text-align: center;
 }
 
 /* Putra / Putri */
 .parent-card .role {
   font-family: 'Work Sans', serif;
-  font-size: 0.9rem;
-  letter-spacing: 0.6px;
-  opacity: 0.9;
-  margin-bottom: 6px;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+  text-transform: uppercase;
 }
 
 /* Nama orang tua */
 .parent-card .parent-name {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.55;
   letter-spacing: 0.4px;
+  opacity: 0.95;
 }
 
-/* alignment */
-.fade-left .parent-card {
-  text-align: right;
-  margin-left: auto;
-}
+/* ===============================
+   FORCE CENTER (KIRI & KANAN)
+================================ */
 
+.fade-left .parent-card,
 .fade-right .parent-card {
-  text-align: left;
+  text-align: center;
+  margin-left: auto;
   margin-right: auto;
 }
+
 
 /* Wrapper */
 .initial-wrapper {
@@ -1449,13 +1589,17 @@ section#gifts {
 }
 
 .side-ornament.left {
-  left: -20px;
+  left: -50px;
   animation: floatLeft 5s ease-in-out infinite;
+  width: 200px;
+  top: 7%;
 }
 
 .side-ornament.right {
-  right: -20px;
+  right: -50px;
   animation: floatRight 5s ease-in-out infinite;
+  width: 200px;
+  top: 7%;
 }
 
 /* 3. Mempelai (Di Paling Depan) */
@@ -1834,4 +1978,15 @@ section#gifts {
   .simply-countdown .simply-amount {
     font-size: clamp(2.2rem, 9vw, 3.2rem);
   }
+}
+
+@media (max-width: 576px) {
+
+  .couple-img {
+    width: 120px;
+    height: 155px;
+    padding: 5px;
+    border-radius: 65px 65px 48px 48px;
+  }
+
 }
